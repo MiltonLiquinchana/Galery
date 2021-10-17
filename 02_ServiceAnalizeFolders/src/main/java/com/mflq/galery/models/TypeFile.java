@@ -2,7 +2,6 @@ package com.mflq.galery.models;
 
 import java.io.Serializable;
 import java.util.List;
-
 public class TypeFile implements Serializable {
 
 	/**
@@ -14,7 +13,16 @@ public class TypeFile implements Serializable {
 
 	private String typeFile;
 
-	List<FileData> filesData;
+	private List<FileData> filesData;
+	
+
+	public int getPkTypeFile() {
+		return pkTypeFile;
+	}
+
+	public void setPkTypeFile(int pkTypeFile) {
+		this.pkTypeFile = pkTypeFile;
+	}
 
 	public String getTypeFile() {
 		return typeFile;
