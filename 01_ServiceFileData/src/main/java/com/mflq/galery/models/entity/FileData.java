@@ -38,8 +38,8 @@ public class FileData implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "FK_TYPEFILE", referencedColumnName = "PK_TYPEFILE")
-	@JsonIgnoreProperties(value = { "filesData", "hibernateLazyInitializer" })
-	TypeFile typeFile;
+	@JsonIgnoreProperties(value = { "hibernateLazyInitializer" })
+	private TypeFile typeFile;
 
 	public String getRouteFile() {
 		return routeFile;

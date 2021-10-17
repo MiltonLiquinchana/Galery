@@ -3,14 +3,12 @@ package com.mflq.galery.models.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -31,17 +29,24 @@ public class TypeFile implements Serializable {
 	@Column
 	private String typeFile;
 
-	@OneToMany(mappedBy = "typeFile", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	List<FileData> filesData;
+//	@JsonInclude(JsonInclude.Include.NON_NULL)
+	@Transient
+	private List<FileData> filesData;
 
 	public TypeFile() {
 	}
 
-	public TypeFile(int pkTypeFile, String typeFile, List<FileData> filesData) {
-		this.pkTypeFile = pkTypeFile;
-		this.typeFile = typeFile;
-		this.filesData = filesData;
-	}
+//	public TypeFile(int pkTypeFile, String typeFile, List<FileData> filesData) {
+//		this.pkTypeFile = pkTypeFile;
+//		this.typeFile = typeFile;
+//		this.filesData = filesData;
+//	}
+//	
+//	public TypeFile(int pkTypeFile, String typeFile) {
+//		this.pkTypeFile = pkTypeFile;
+//		this.typeFile = typeFile;
+////		this.filesData = filesData;
+//	}
 
 	public int getPkTypeFile() {
 		return pkTypeFile;
