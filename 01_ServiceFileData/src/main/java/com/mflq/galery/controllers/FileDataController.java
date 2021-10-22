@@ -25,16 +25,11 @@ public class FileDataController {
 		return new ResponseEntity<>(fileDataService.findAllFileData(), HttpStatus.OK);
 	}
 
-//	@GetMapping("findfiledata/{id}")
-//	public ResponseEntity<FileData> findFileData(@PathVariable int id) {
-//
-//		return new ResponseEntity<FileData>(fileDataService.findFileDataById(id), HttpStatus.OK);
-//	}
 
-	@PostMapping("savefiledata")
-	public ResponseEntity<String> saveFileData(@RequestBody List<FileData> listFile) {
+	@PostMapping("savelstfiledata")
+	public ResponseEntity<List<FileData>> savelstFileData(@RequestBody List<FileData> listFile) {
 
-		return new ResponseEntity<String>(fileDataService.saveFileData(listFile), HttpStatus.OK);
+		return new ResponseEntity<List<FileData>>(fileDataService.savelstFileData(listFile), HttpStatus.OK);
 
 	}
 }

@@ -8,16 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class TypeFile implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -29,24 +28,17 @@ public class TypeFile implements Serializable {
 	@Column
 	private String typeFile;
 
-//	@JsonInclude(JsonInclude.Include.NON_NULL)
-	@Transient
+	@JsonIgnoreProperties(value = { "typeFile", "hibernateLazyInitializer" })
+	@OneToMany(mappedBy = "typeFile")
 	private List<FileData> filesData;
 
 	public TypeFile() {
 	}
 
-//	public TypeFile(int pkTypeFile, String typeFile, List<FileData> filesData) {
-//		this.pkTypeFile = pkTypeFile;
-//		this.typeFile = typeFile;
-//		this.filesData = filesData;
-//	}
-//	
-//	public TypeFile(int pkTypeFile, String typeFile) {
-//		this.pkTypeFile = pkTypeFile;
-//		this.typeFile = typeFile;
-////		this.filesData = filesData;
-//	}
+	public TypeFile(int pkTypeFile, String typeFile) {
+		this.pkTypeFile = pkTypeFile;
+		this.typeFile = typeFile;
+	}
 
 	public int getPkTypeFile() {
 		return pkTypeFile;
@@ -70,11 +62,6 @@ public class TypeFile implements Serializable {
 
 	public void setFilesData(List<FileData> filesData) {
 		this.filesData = filesData;
-	}
-
-	@Override
-	public String toString() {
-		return "TypeFile [typeFile=" + typeFile + ", filesData=" + filesData + "]";
 	}
 
 }

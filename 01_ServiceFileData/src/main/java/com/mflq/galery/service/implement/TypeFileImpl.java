@@ -1,6 +1,7 @@
 package com.mflq.galery.service.implement;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,10 @@ public class TypeFileImpl implements ITypeFileService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<TypeFile> listTypeFile() {
-
-		return (List<TypeFile>) typeFileRepository.findAll();
+		
+		/*Consultamos(retorna una lista de arreglo de objetos) y mapeamos a un nuevo objeto de TypeFile*/
+		return typeFileRepository.findtypesfile().stream().map(list -> new TypeFile((int) list[0], (String) list[1]))
+				.collect(Collectors.toList());
 	}
 
 }

@@ -2,10 +2,8 @@ package com.mflq.galery.models.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,10 +34,18 @@ public class FileData implements Serializable {
 	@Column
 	private String nameFile;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "FK_TYPEFILE", referencedColumnName = "PK_TYPEFILE")
-	@JsonIgnoreProperties(value = { "hibernateLazyInitializer" })
+	@JsonIgnoreProperties(value = { "filesData", "hibernateLazyInitializer" })
+	@ManyToOne
+	@JoinColumn(name = "FK_TYPEFILE")
 	private TypeFile typeFile;
+
+	public int getPkFileData() {
+		return pkFileData;
+	}
+
+	public void setPkFileData(int pkFileData) {
+		this.pkFileData = pkFileData;
+	}
 
 	public String getRouteFile() {
 		return routeFile;
@@ -67,7 +73,8 @@ public class FileData implements Serializable {
 
 	@Override
 	public String toString() {
-		return "FileData [routeFile=" + routeFile + ", nameFile=" + nameFile + ", typeFile=" + typeFile + "]";
+		return "FileData [pkFileData=" + pkFileData + ", routeFile=" + routeFile + ", nameFile=" + nameFile
+				+ ", typeFile=" + typeFile + "]";
 	}
 
 }
