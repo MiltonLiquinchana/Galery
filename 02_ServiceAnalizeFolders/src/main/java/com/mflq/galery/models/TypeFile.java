@@ -4,17 +4,23 @@ import java.io.Serializable;
 import java.util.List;
 public class TypeFile implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private int pkTypeFile;
 
+
 	private String typeFile;
 
+
 	private List<FileData> filesData;
-	
+
+	public TypeFile() {
+	}
+
+	public TypeFile(int pkTypeFile, String typeFile) {
+		this.pkTypeFile = pkTypeFile;
+		this.typeFile = typeFile;
+	}
 
 	public int getPkTypeFile() {
 		return pkTypeFile;
@@ -39,11 +45,4 @@ public class TypeFile implements Serializable {
 	public void setFilesData(List<FileData> filesData) {
 		this.filesData = filesData;
 	}
-
-	@Override
-	public String toString() {
-		return "TypeFile [pkTypeFile=" + pkTypeFile + ", typeFile=" + typeFile + ", filesData=" + filesData + "]";
-	}
-
-	
 }

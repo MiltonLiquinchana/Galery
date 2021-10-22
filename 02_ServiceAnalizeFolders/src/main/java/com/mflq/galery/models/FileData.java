@@ -4,29 +4,41 @@ import java.io.Serializable;
 
 public class FileData implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
 
 	private int pkFileData;
 
+
 	private String routeFile;
+
 
 	private String nameFile;
 
+
 	private TypeFile typeFile;
+
+	
+	
+	public FileData() {
+	}
+	
 	
 
-	public FileData() {
-		
-	}
-
 	public FileData(String routeFile, String nameFile, TypeFile typeFile) {
-		super();
 		this.routeFile = routeFile;
 		this.nameFile = nameFile;
 		this.typeFile = typeFile;
+	}
+
+
+
+	public int getPkFileData() {
+		return pkFileData;
+	}
+
+	public void setPkFileData(int pkFileData) {
+		this.pkFileData = pkFileData;
 	}
 
 	public String getRouteFile() {
@@ -59,5 +71,4 @@ public class FileData implements Serializable {
 				+ ", typeFile=" + typeFile + "]";
 	}
 
-	
 }

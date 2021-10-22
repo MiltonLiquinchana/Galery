@@ -1,7 +1,6 @@
 package com.mflq.galery.service.Implements;
 
 import java.io.File;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,13 +26,19 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 	private FileData fileData;
 
 	/* Lista para guardar los archivos principales */
-	List<FileData> lstfilespath;
+	private List<FileData> lstfilespath;
 
 	/* Ficheros de imagen que si se deben encontrar */
 	private static final Pattern imgPatterns = Pattern.compile(".*(\\.(bmp|gif|jpe?g|jpg|mp4|png|tiff?))$");
 
 	@Override
 	public List<FileData> analizeFolders(String rootDirectory) {
+
+		/*
+		 * Al ejecutar el metodo inicializa el arraylist que guarda las rutas de los
+		 * archivos encontrados dentro del directorio raiz
+		 */
+		lstfilespath = new ArrayList<FileData>();
 
 		/*
 		 * Al iniciar buscamos todos los tipos de ficheros que puede manejar la
@@ -46,12 +51,6 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 		File rootFolder = new File(rootDirectory);
 
 		/*
-		 * Al ejecutar el metodo inicializa el arraylist que guarda las rutas de los
-		 * archivos encontrados dentro del directorio raiz
-		 */
-		lstfilespath = new ArrayList<FileData>();
-
-		/*
 		 * en un array list guarda la lista de archivos y subcarpetas encontradas en el
 		 * directorio raiz
 		 */
@@ -59,6 +58,7 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 
 		/* obtenemos */
 		int lstMainPathsSize = lstMainPaths.size();
+		int contador = 1;
 
 		/* Con un for recorremos la lista */
 		for (int i = 0; i < lstMainPathsSize; i++) {
@@ -109,28 +109,25 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 				/* agrega el nuevo objeto de FileData al arreglo de rutas filtradas */
 				lstfilespath.add(fileData);
 			}
+			if (lstfilespath.size() == 10) {
+				System.out.println(contador);
+				HttpEntity<List<FileData>> request = new HttpEntity<List<FileData>>(lstfilespath);
+				clienteRest.postForLocation("http://localhost:8081/filedataservice/filedata/savelstfiledata", request);
+				lstfilespath.clear();
 
-			/*
-			 * Si la lista de archivos filtrados es menor o igual a 50 entonces lo envia a
-			 * guardar en la bd
-			 */
-//				HttpEntity<List<FileData>> request = new HttpEntity<List<FileData>>(lstfilespath);
-//				URI location = clienteRest.postForLocation("localhost:8081/filedataservice/filedata/savefiledata", request);
-//				lstfilespath.clear();
-			
+				contador++;
+			}
 
 		}
 
 		HttpEntity<List<FileData>> request = new HttpEntity<List<FileData>>(lstfilespath);
-		URI location = clienteRest.postForLocation("http://localhost:8081/filedataservice/filedata/savefiledata", request);
+		clienteRest.postForLocation("http://localhost:8081/filedataservice/filedata/savelstfiledata", request);
+
+		/* Al finalizar todo el guardado limpiamos todas las listas */
 //		lstfilespath.clear();
-		
-//		
-//		int contador = 0;
-//		for (FileData ruta : lstfilespath) {
-//			System.out.println("conteo: " + contador + " cadena: " + ruta);
-//			contador++;
-//		}
+//		listTypes.clear();
+//		lstMainPaths.clear();
+		System.out.println("finalizado");
 		return lstfilespath;
 
 	}
