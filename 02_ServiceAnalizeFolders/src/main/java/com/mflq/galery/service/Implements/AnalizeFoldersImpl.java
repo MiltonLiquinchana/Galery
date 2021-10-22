@@ -56,7 +56,7 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 		 */
 		ArrayList<File> lstMainPaths = new ArrayList<File>(Arrays.asList(rootFolder.listFiles()));
 
-		/* obtenemos */
+		/* obtenemos el tamaño de la lista lstMainPaths */
 		int lstMainPathsSize = lstMainPaths.size();
 		int contador = 1;
 
@@ -109,10 +109,17 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 				/* agrega el nuevo objeto de FileData al arreglo de rutas filtradas */
 				lstfilespath.add(fileData);
 			}
-			if (lstfilespath.size() == 10) {
+			/* Si la lista tiene ya diez elementos manda a guardar */
+			if (lstfilespath.size() == 50) {
 				System.out.println(contador);
+
+				/* Con http entity definimos un json con la estructura a enviar */
 				HttpEntity<List<FileData>> request = new HttpEntity<List<FileData>>(lstfilespath);
+
+				/* Hacemos la peticion post, pasamos la url del api y el json */
 				clienteRest.postForLocation("http://localhost:8081/filedataservice/filedata/savelstfiledata", request);
+
+				/* Despues de guardar limpia la lista */
 				lstfilespath.clear();
 
 				contador++;
@@ -120,13 +127,16 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 
 		}
 
-		HttpEntity<List<FileData>> request = new HttpEntity<List<FileData>>(lstfilespath);
-		clienteRest.postForLocation("http://localhost:8081/filedataservice/filedata/savelstfiledata", request);
+		/*
+		 * Al finalizar se guarda la lista esto solo en caso de que al finalizar el
+		 * analizis existan datos sin guardar
+		 */
+		if (lstfilespath.size() > 0) {
+			HttpEntity<List<FileData>> request = new HttpEntity<List<FileData>>(lstfilespath);
+			clienteRest.postForLocation("http://localhost:8081/filedataservice/filedata/savelstfiledata", request);
+		}
 
 		/* Al finalizar todo el guardado limpiamos todas las listas */
-//		lstfilespath.clear();
-//		listTypes.clear();
-//		lstMainPaths.clear();
 		System.out.println("finalizado");
 		return lstfilespath;
 
