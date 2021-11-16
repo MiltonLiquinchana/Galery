@@ -6,23 +6,24 @@ import java.util.List;
 import javax.swing.JFileChooser;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mflq.galery.models.FileData;
+//import com.mflq.galery.models.FileData;
 import com.mflq.galery.service.IAnalizeFolderThreading;
 
 @RestController
 @RequestMapping("analizefolders")
 public class AnalizeFoldersController {
-	
+
 	@Autowired
 	private IAnalizeFolderThreading analizeFolderThreading;
 
 	@GetMapping("getlistfolders")
-	public ResponseEntity<List<FileData>> getListFolders() {
+	public ResponseEntity<?> getListFolders() {
 
 		/* muestra el cuadro de dialogo que permite seleccionar carpetas y archivos */
 		JFileChooser fileChooser = new JFileChooser();
@@ -51,7 +52,7 @@ public class AnalizeFoldersController {
 //			return new ResponseEntity<>(analizeFoldersService.analizeFolders(rootDirectory.getAbsolutePath()),
 //					HttpStatus.OK);
 		} else {
-			System.out.println("Se cancelo la apertura de la carpeta");
+			return new ResponseEntity<>("Se cancelo la apertura de la carpeta", HttpStatus.OK);
 		}
 		return null;
 	}

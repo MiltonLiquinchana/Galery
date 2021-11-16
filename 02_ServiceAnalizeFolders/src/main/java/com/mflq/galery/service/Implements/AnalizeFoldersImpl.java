@@ -90,20 +90,23 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 				 * los nombres y directorios ya encontrados
 				 */
 
-				// Obtenga la extencion del archivo
+				// Obtiene la extencion del archivo
 				String extension = lstMainPaths.get(i).toString()
-						.substring(lstMainPaths.get(i).toString().lastIndexOf('.')).replace(".", "");
+						.substring(lstMainPaths.get(i).toString().lastIndexOf('.'));
+
+				// Obtiene el nombre del archivo y elimina la extencion desde el punto
+				String nameFile = lstMainPaths.get(i).getName().replace(extension, "");
 
 				/*
 				 * Cada directorio de archivo encontrado se genera un nuevo objeto de tipo File
 				 * Data
 				 */
-				fileData = new FileData(lstMainPaths.get(i).getParentFile().toString(), lstMainPaths.get(i).getName(),
+				fileData = new FileData(lstMainPaths.get(i).getParentFile().toString(), nameFile,
 						/*
 						 * de la lista de tipos de archivos permitidos obtenemos el objeto de tipo
 						 * extencion de archivo y agregamos
 						 */
-						listTypes.stream().filter(file -> file.getTypeFile().equals(extension))
+						listTypes.stream().filter(file -> file.getTypeFile().equals(extension.replace(".", "")))
 								.collect(Collectors.toList()).get(0));
 
 				/* agrega el nuevo objeto de FileData al arreglo de rutas filtradas */
