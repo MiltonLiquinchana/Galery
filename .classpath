@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="01_ServiceFileData/src/main/java"/>
+	<classpathentry kind="src" path="01_ServiceFileData/src/test/java"/>
+	<classpathentry kind="src" path="02_ServiceAnalizeFolders/src/main/java"/>
+	<classpathentry kind="src" path="02_ServiceAnalizeFolders/src/test/java"/>
+	<classpathentry kind="lib" path="01_ServiceFileData/gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry kind="lib" path="02_ServiceAnalizeFolders/gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
