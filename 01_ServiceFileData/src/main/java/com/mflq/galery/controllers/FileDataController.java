@@ -23,7 +23,7 @@ public class FileDataController {
 	@GetMapping("listfiledata")
 	public ResponseEntity<List<FileData>> listFileData() {
 		return new ResponseEntity<>(fileDataService.findAllFileData(), HttpStatus.OK);
-		/*Comentario forsozo*/
+		/*Comentario forsozo borrado*/
 	}
 
 
