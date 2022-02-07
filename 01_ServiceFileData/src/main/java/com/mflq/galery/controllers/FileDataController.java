@@ -17,7 +17,7 @@ import com.mflq.galery.service.IFileDataService;
 @RestController
 @RequestMapping("filedata")
 public class FileDataController {
-
+//Comentario borrar
 	@Autowired
 	private IFileDataService fileDataService;
 
