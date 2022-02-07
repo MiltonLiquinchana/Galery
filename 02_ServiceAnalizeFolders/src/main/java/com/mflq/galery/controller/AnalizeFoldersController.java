@@ -15,13 +15,13 @@ import com.mflq.galery.models.FileData;
 import com.mflq.galery.service.IAnalizeFolderThreading;
 
 @RestController
-@RequestMapping("analizefolders")
+@RequestMapping("analyzefolders")
 public class AnalizeFoldersController {
 	
 	@Autowired
 	private IAnalizeFolderThreading analizeFolderThreading;
 
-	@GetMapping("getlistfolders")
+	@GetMapping("analyzefiles")
 	public ResponseEntity<List<FileData>> getListFolders() {
 
 		/* muestra el cuadro de dialogo que permite seleccionar carpetas y archivos */
