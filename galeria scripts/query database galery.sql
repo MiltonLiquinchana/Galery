@@ -21,11 +21,6 @@ FK_TYPEFILE INT NOT NULL,
 FOREIGN KEY(FK_TYPEFILE) REFERENCES TypeFile(PK_TYPEFILE)
 );
 
-select * from TypeFile order by PK_TYPEFILE asc;
-select * from FileData order by PK_FILEDATA asc;
-
-select * from FileData group by FK_TYPEFILE
-
 
 
 
