@@ -109,12 +109,12 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 				/* agrega el nuevo objeto de FileData al arreglo de rutas filtradas */
 				lstfilespath.add(fileData);
 			}
+
 			if (lstfilespath.size() == 10) {
 				System.out.println(contador);
 				HttpEntity<List<FileData>> request = new HttpEntity<List<FileData>>(lstfilespath);
 				clienteRest.postForLocation("http://localhost:8081/filedataservice/filedata/savelstfiledata", request);
 				lstfilespath.clear();
-
 				contador++;
 			}
 
@@ -124,9 +124,6 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 		clienteRest.postForLocation("http://localhost:8081/filedataservice/filedata/savelstfiledata", request);
 
 		/* Al finalizar todo el guardado limpiamos todas las listas */
-//		lstfilespath.clear();
-//		listTypes.clear();
-//		lstMainPaths.clear();
 		System.out.println("finalizado");
 		return lstfilespath;
 
