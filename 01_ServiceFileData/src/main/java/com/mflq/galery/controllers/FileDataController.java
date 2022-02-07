@@ -17,15 +17,16 @@ import com.mflq.galery.service.IFileDataService;
 @RestController
 @RequestMapping("filedata")
 public class FileDataController {
+
 	@Autowired
 	private IFileDataService fileDataService;
 
 	@GetMapping("listfiledata")
 	public ResponseEntity<List<FileData>> listFileData() {
-		return new ResponseEntity<>(fileDataService.findAllFileData(), HttpStatus.OK);
-		/*Comentario forsozo borrado*/
-	}
 
+		return new ResponseEntity<>(fileDataService.findAllFileData(), HttpStatus.OK);
+
+	}
 
 	@PostMapping("savelstfiledata")
 	public ResponseEntity<List<FileData>> savelstFileData(@RequestBody List<FileData> listFile) {

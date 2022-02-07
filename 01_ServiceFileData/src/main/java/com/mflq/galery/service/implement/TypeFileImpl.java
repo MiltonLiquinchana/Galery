@@ -16,11 +16,15 @@ public class TypeFileImpl implements ITypeFileService {
 	@Autowired
 	private TypeFileRepository typeFileRepository;
 
+	/* Retorna una lista de tipo de archivo */
 	@Override
 	@Transactional(readOnly = true)
 	public List<TypeFile> listTypeFile() {
-		
-		/*Consultamos(retorna una lista de arreglo de objetos) y mapeamos a un nuevo objeto de TypeFile*/
+
+		/*
+		 * Consultamos(retorna una lista de arreglo de objetos) y mapeamos a un nuevo
+		 * objeto de TypeFile
+		 */
 		return typeFileRepository.findtypesfile().stream().map(list -> new TypeFile((int) list[0], (String) list[1]))
 				.collect(Collectors.toList());
 	}
