@@ -112,8 +112,13 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 				/* agrega el nuevo objeto de FileData al arreglo de rutas filtradas */
 				lstfilespath.add(fileData);
 			}
+<<<<<<< HEAD
 			/* Si la lista tiene ya diez elementos manda a guardar */
 			if (lstfilespath.size() == 50) {
+=======
+
+			if (lstfilespath.size() == 10) {
+>>>>>>> main
 				System.out.println(contador);
 
 				/* Con http entity definimos un json con la estructura a enviar */
@@ -124,7 +129,6 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 
 				/* Despues de guardar limpia la lista */
 				lstfilespath.clear();
-
 				contador++;
 			}
 
