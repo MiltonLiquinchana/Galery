@@ -18,12 +18,12 @@ import com.mflq.galery.service.IAnalizeFolderThreading;
 @RestController
 @RequestMapping("analyzefolders")
 public class AnalizeFoldersController {
-	
+
 	@Autowired
 	private IAnalizeFolderThreading analizeFolderThreading;
 
 	@GetMapping("analyzefiles")
-	public ResponseEntity<List<FileData>> getListFolders() {
+	public ResponseEntity<?> getListFolders() {
 
 		/* muestra el cuadro de dialogo que permite seleccionar carpetas y archivos */
 		JFileChooser fileChooser = new JFileChooser();
@@ -46,15 +46,11 @@ public class AnalizeFoldersController {
 			 * pasamos la ruta a el servicio que analiza las la carpeta en busca de
 			 * archivos(imagenes, etc, todo lo que se permita en la galeria)
 			 */
-
 			analizeFolderThreading.analizeFolders(rootDirectory.getAbsolutePath());
-//			System.out.println(rootDirectory.getAbsolutePath());
-//			return new ResponseEntity<>(analizeFoldersService.analizeFolders(rootDirectory.getAbsolutePath()),
-//					HttpStatus.OK);
+			return new ResponseEntity<>("Se a iniciado a analizar la carpeta en busca de archivos",
+					HttpStatus.PROCESSING);
 		} else {
-//			return new ResponseEntity<>("Se cancelo la apertura de la carpeta", HttpStatus.OK);
-			System.out.println("Por el momento solo retorna este mensage");
+			return new ResponseEntity<>("Se cancelo la apertura de la carpeta", HttpStatus.OK);
 		}
-		return null;
 	}
 }

@@ -42,7 +42,7 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 
 		/*
 		 * Al iniciar buscamos todos los tipos de ficheros que puede manejar la
-		 * aplicacion
+		 * aplicacion con restTemplate
 		 */
 		List<TypeFile> listTypes = Arrays.asList(clienteRest
 				.getForObject("http://localhost:8081/filedataservice/typefile/listtypefile", TypeFile[].class));
