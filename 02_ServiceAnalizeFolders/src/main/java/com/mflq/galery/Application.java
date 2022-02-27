@@ -2,7 +2,12 @@ package com.mflq.galery;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
+/*Esta anotacion es importante para habilitar nuestro cliente feign, ademas permite
+ * inyectar estos clientes en nuestros controladores u otros componentes de spring, ejemplo: en una clase service habilita la inyeccion de dependencias
+ *(autowired)*/
+@EnableFeignClients
 @SpringBootApplication
 public class Application {
 

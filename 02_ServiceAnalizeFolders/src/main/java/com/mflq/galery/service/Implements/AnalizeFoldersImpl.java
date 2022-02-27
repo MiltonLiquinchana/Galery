@@ -8,10 +8,9 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
+import com.mflq.galery.clients.ServiceFileDataClientRest;
 import com.mflq.galery.models.FileData;
 import com.mflq.galery.models.TypeFile;
 import com.mflq.galery.service.IAnalizeFoldersService;
@@ -19,8 +18,9 @@ import com.mflq.galery.service.IAnalizeFoldersService;
 @Service
 public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 
+	/* Inyectamos al cliente rest que se creo con feign */
 	@Autowired
-	private RestTemplate clienteRest;
+	private ServiceFileDataClientRest serviceFileDataClientRest;
 
 	/* Instancia al objeto photo */
 	private FileData fileData;
@@ -44,9 +44,7 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 		 * Al iniciar buscamos todos los tipos de ficheros que puede manejar la
 		 * aplicacion con restTemplate
 		 */
-		List<TypeFile> listTypes = Arrays.asList(clienteRest
-				.getForObject("http://localhost:8081/filedataservice/typefile/listtypefile", TypeFile[].class));
-
+		List<TypeFile> listTypes = serviceFileDataClientRest.listTypeFile();
 		/* declaramos un nuevo objeto file y pasamos el directorio raiz */
 		File rootFolder = new File(rootDirectory);
 
@@ -62,9 +60,10 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 
 		/* Con un for recorremos la lista */
 		for (int i = 0; i < lstMainPathsSize; i++) {
-
+			System.out.println("Analizando la carpeta: " + lstMainPaths.get(i));
 			/* pregunta si la ruta obtenida en la posicion es un directorio */
 			if (lstMainPaths.get(i).isDirectory()) {
+
 				/*
 				 * Si es un directorio obteniene sus directorios y archivos hijos y agrega a la
 				 * lista principal
@@ -113,16 +112,11 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 				lstfilespath.add(fileData);
 			}
 
-			/* Si la lista tiene ya diez elementos manda a guardar */
-			if (lstfilespath.size() == 10) {
+			/* Si la lista tiene ya 50 elementos manda a guardar */
+			if (lstfilespath.size() == 50) {
 
-				System.out.println(contador);
-
-				/* Con http entity definimos un json con la estructura a enviar */
-				HttpEntity<List<FileData>> request = new HttpEntity<List<FileData>>(lstfilespath);
-
-				/* Hacemos la peticion post, pasamos la url del api y el json */
-				clienteRest.postForLocation("http://localhost:8081/filedataservice/filedata/savelstfiledata", request);
+				/* Hacemos la peticion post con feign,pasamos la lista al metodo que guarda */
+				serviceFileDataClientRest.savelstFileData(lstfilespath);
 
 				/* Despues de guardar limpia la lista */
 				lstfilespath.clear();
@@ -136,8 +130,8 @@ public class AnalizeFoldersImpl implements IAnalizeFoldersService {
 		 * analizis existan datos sin guardar
 		 */
 		if (lstfilespath.size() > 0) {
-			HttpEntity<List<FileData>> request = new HttpEntity<List<FileData>>(lstfilespath);
-			clienteRest.postForLocation("http://localhost:8081/filedataservice/filedata/savelstfiledata", request);
+			/* Hacemos la peticion post con feign,pasamos la lista al metodo que guarda */
+			serviceFileDataClientRest.savelstFileData(lstfilespath);
 		}
 
 		/* Al finalizar todo el guardado limpiamos todas las listas */

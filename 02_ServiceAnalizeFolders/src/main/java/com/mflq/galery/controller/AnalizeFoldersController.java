@@ -1,7 +1,6 @@
 package com.mflq.galery.controller;
 
 import java.io.File;
-import java.util.List;
 
 import javax.swing.JFileChooser;
 
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mflq.galery.models.FileData;
 import com.mflq.galery.service.IAnalizeFolderThreading;
 
 @RestController
@@ -23,7 +21,7 @@ public class AnalizeFoldersController {
 	private IAnalizeFolderThreading analizeFolderThreading;
 
 	@GetMapping("analyzefiles")
-	public ResponseEntity<?> getListFolders() {
+	public ResponseEntity<?> analyzefiles() {
 
 		/* muestra el cuadro de dialogo que permite seleccionar carpetas y archivos */
 		JFileChooser fileChooser = new JFileChooser();
@@ -47,8 +45,9 @@ public class AnalizeFoldersController {
 			 * archivos(imagenes, etc, todo lo que se permita en la galeria)
 			 */
 			analizeFolderThreading.analizeFolders(rootDirectory.getAbsolutePath());
-			return new ResponseEntity<>("Se a iniciado a analizar la carpeta en busca de archivos",
-					HttpStatus.PROCESSING);
+			return new ResponseEntity<>(
+					"Se a iniciado a analizar la carpeta: '" + rootDirectory + "' en busca de archivos",
+					HttpStatus.ACCEPTED);
 		} else {
 			return new ResponseEntity<>("Se cancelo la apertura de la carpeta", HttpStatus.OK);
 		}
