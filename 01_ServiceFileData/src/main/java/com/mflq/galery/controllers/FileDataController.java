@@ -21,14 +21,14 @@ public class FileDataController {
 	@Autowired
 	private IFileDataService fileDataService;
 
-	@GetMapping("listfiledata")
+	@GetMapping("list")
 	public ResponseEntity<List<FileData>> listFileData() {
 
 		return new ResponseEntity<>(fileDataService.findAllFileData(), HttpStatus.OK);
 
 	}
 
-	@PostMapping("savelstfiledata")
+	@PostMapping("save")
 	public ResponseEntity<List<FileData>> savelstFileData(@RequestBody List<FileData> listFile) {
 
 		return new ResponseEntity<List<FileData>>(fileDataService.savelstFileData(listFile), HttpStatus.OK);

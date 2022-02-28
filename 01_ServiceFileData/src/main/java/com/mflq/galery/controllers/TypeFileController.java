@@ -19,7 +19,7 @@ public class TypeFileController {
 	@Autowired
 	private ITypeFileService typeFileService;
 
-	@GetMapping("listtypefile")
+	@GetMapping("list")
 	public ResponseEntity<List<TypeFile>> listTypeFile() {
 		return new ResponseEntity<>(typeFileService.listTypeFile(), HttpStatus.OK);
 	}
