@@ -20,10 +20,10 @@ public interface ServiceFileDataClientRest {
 	 * peticiones al otro servicio, este primer metodo consulta el typo de ficheros
 	 * permitidos
 	 */
-	@GetMapping("typefile/listtypefile")
+	@GetMapping("typefile/list")
 	List<TypeFile> listTypeFile();
 
 	/* Metodo que llama al endpoint que guarda los datos encontrados */
-	@PostMapping("filedata/savelstfiledata")
+	@PostMapping("filedata/save")
 	public List<FileData> savelstFileData(@RequestBody List<FileData> listFile);
 }
