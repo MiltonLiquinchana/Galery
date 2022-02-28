@@ -8,19 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mflq.galery.service.IAnalizeFolderThreading;
 
 @RestController
-@RequestMapping("analyzefolders")
+@RequestMapping("analyze")
 public class AnalizeFoldersController {
 
 	@Autowired
 	private IAnalizeFolderThreading analizeFolderThreading;
 
-	@GetMapping("analyzefiles")
+	/*
+	 * Servicio que se encarga una tarea en segundo plano la cual se encarga de
+	 * analizar una carpeta en busca de archivos para mostrar en la galeria
+	 */
+	@PostMapping("files")
 	public ResponseEntity<?> analyzefiles() {
 
 		/* muestra el cuadro de dialogo que permite seleccionar carpetas y archivos */
@@ -46,7 +51,7 @@ public class AnalizeFoldersController {
 			 */
 			analizeFolderThreading.analizeFolders(rootDirectory.getAbsolutePath());
 			return new ResponseEntity<>(
-					"Se a iniciado a analizar la carpeta: '" + rootDirectory + "' en busca de archivos",
+					"Se inicio el analisis de la carpeta: '" + rootDirectory + "' en busca de archivos",
 					HttpStatus.ACCEPTED);
 		} else {
 			return new ResponseEntity<>("Se cancelo la apertura de la carpeta", HttpStatus.OK);
